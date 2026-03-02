@@ -1,6 +1,6 @@
  <?php 
         //connecting to MySQL
-        $con = mysqli_connect('127.0.0.1', 'root', '', 'web2');
+        $con = mysqli_connect('127.0.0.1', 'root', '', 'web1');
         // $variable = mysqli_connect('127.0.0.1', 'root', 'password', 'db_name_i_want_to_connect_with');  
         //note that db should be createed before this is to be conncectd
 
@@ -13,7 +13,7 @@
         }
 
         //create db table if it doesn't exit
-        $table_web2 = "CREATE TABLE IF NOT EXISTS uinfo(
+        $table_web1 = "CREATE TABLE IF NOT EXISTS uinfo(
             id INT AUTO_INCREMENT PRIMARY KEY,
             fname VARCHAR(100) NOT NULL,
             lname VARCHAR(100) NOT NULL,
@@ -21,12 +21,12 @@
             email VARCHAR(100) NOT NULL UNIQUE,
             pass VARCHAR(255) NOT NULL
         );";
-        mysqli_query($con, $table_web2); 
+        mysqli_query($con, $table_web1); 
 
         //pass length 255 because password_hash() creates long encrypted strings, it will store hashed password
         // this executes the sql query. runs this table creation command in mysql
         //$con = database connection
-        //$table_web2 = sql command
+        //$table_web1 = sql command
         /*  PHP Script  → Create SQL query → Send query to MySQL → Table created (if not exists)  */
 
         //submission
