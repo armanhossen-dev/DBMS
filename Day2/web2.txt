@@ -10,11 +10,48 @@ http://localhost/DBMS/Day2/web2.php
 always open the local host link not the number link, because it sometimes shows the page but doesn't allow you to submit data or modify the db
 
 
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| web1               |
+| web2               |
++--------------------+
+8 rows in set (0.004 sec)
 
-INSERT INTO uinfo (fname, lname, uname, email, pass)
-VALUES ('Arman', 'Hossen', 'ahrn', '2armanhossen@gmail.com', 'testpassword');
+MariaDB [(none)]> use web2;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
 
-select * from uinfo;
+Database changed
+MariaDB [web2]> show tables;
++----------------+
+| Tables_in_web2 |
++----------------+
+| uinfo          |
++----------------+
+1 row in set (0.001 sec)
+
+MariaDB [web2]> describe uinfo;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| fname | varchar(100) | NO   |     | NULL    |                |
+| lname | varchar(100) | NO   |     | NULL    |                |
+| uname | varchar(100) | NO   |     | NULL    |                |
+| email | varchar(100) | NO   | UNI | NULL    |                |
+| pass  | varchar(255) | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+6 rows in set (0.012 sec)
+
+MariaDB [web2]> select * from uinfo;
 +----+-------+--------+-------+------------------------+--------------+
 | id | fname | lname  | uname | email                  | pass         |
 +----+-------+--------+-------+------------------------+--------------+
