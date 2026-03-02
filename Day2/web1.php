@@ -1,5 +1,6 @@
+ <!-- http://localhost/DBMS/Day2/web1.php -->
  <?php 
-        //connecting to MySQL
+         //connecting to MySQL
         $con = mysqli_connect('127.0.0.1', 'root', '', 'web1');
         // $variable = mysqli_connect('127.0.0.1', 'root', 'password', 'db_name_i_want_to_connect_with');  
         //note that db should be createed before this is to be conncectd
@@ -11,6 +12,7 @@
             //die() php function, immediately terminates (stops) the script.
             // prints a message before stopping execution, 
         }
+
 
         //create db table if it doesn't exit
         $table_web1 = "CREATE TABLE IF NOT EXISTS uinfo(
@@ -29,6 +31,8 @@
         //$table_web1 = sql command
         /*  PHP Script  → Create SQL query → Send query to MySQL → Table created (if not exists)  */
 
+
+
         //submission
         if(isset($_POST['sub'])){
             $fn = mysqli_real_escape_string($con, $_POST['fname']);
@@ -46,11 +50,13 @@
             } else {
                 echo "<p class='text-red-500 p-3 bg-pink-700 text-center'>Insert Error: " . mysqli_stmt_error($stmt) . "</p>";
             }
-        } // ✅ closing brace goes HERE, after all insert logic
+        } 
         //its a PRG (post-> redirect -> get) pattern
         // if the db insert query succeeds then this page reloads itslf and stops execution!
         // User submits form (POST) -> Insert into database ->  Redirect to same page (GET request) -> Page reloads cleanly 
         
+
+
         //delete request(by id)
         if(isset($_GET['delete_id'])){
             //as id is integer ,so this will not work, $e = mysqli_real_escape_string($con, $_GET['delete_id']);
@@ -61,7 +67,7 @@
             header("Location: " . $_SERVER['PHP_SELF']); 
             exit();
         }
-    
+
 ?>
 
 <!DOCTYPE html>
@@ -72,11 +78,14 @@
     <title>Practicing Day1</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-400">
-    <h3 class="text-white shadow-xl p-5 mb-10 mx-auto text-xl font-bold">Data Collection From User</h3>
+<body class="bg-sky-300">
+
+    <h3 class="text-white text-4xl font-bold text-center
+               bg-sky-500 mb-10 mx-auto mt-5
+               rounded-xl shadow-xl p-5 w-2/3">Data Collection From User</h3>
 
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST"
-    class="max-w-md mx-auto p-6 bg-blue-500 shadow-xl rounded-lg">
+    class="max-w-md mx-auto p-6 bg-sky-500 shadow-xl rounded-lg">
         
         <label class="flex flex-1 font-medium">First Name :</label>
         <input class="w-full border border-blue-400 rounded-lg px-3 py-2 mb-2
@@ -115,50 +124,58 @@
                     hover:bg-blue-700 transistion duration-200">        
     </form>
 
- <?php 
-   //display all users info!
-            $show = mysqli_query($con,
-                                    "SELECT id,
-                                    CONCAT(fname,' ',lname) AS Name,
-                                    email AS Email,
-                                    uname AS UserName
-                                    FROM uinfo");
-            if(!$show){
-                die(mysqli_error($con));
-            }
-    
-            if(mysqli_num_rows($show) > 0){
-                
-                echo "<h3>All Users Info!</h3>";
-                echo "<table class='mx-auto bg-white text-black border rounded-lg mt-10 w-2/3 text-center'>";
-                echo "<tr class= 'bg-blue-200'>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>UserName</th>
-                        <th>Action</th>
-                    </tr>";
-                while ($row = mysqli_fetch_assoc($show)){
-                    echo "<tr class='border-b hover:bg-blue-500'>";
-                        
-                        echo "<td>".htmlspecialchars($row['Name'])."</td>";
-                        echo "<td>".htmlspecialchars($row['Email'])."</td>";
-                        echo "<td>".htmlspecialchars($row['UserName'])."</td>";
+<?php 
+        //display all users info!
+        $show = mysqli_query($con,
+                                "SELECT id,
+                                CONCAT(fname,' ',lname) AS Name,
+                                email AS Email,
+                                uname AS UserName
+                                FROM uinfo");
+        if(!$show){
+            die(mysqli_error($con));
+        }
 
-                        echo "<td>
-                            <a class='delete_btn text-red-600' 
-                            href='?delete_id=".$row['id']."'
-                            onclick=\"return confirm('Are You Sure?');\">
-                                Delete
-                            </a>
-                            </td>";
-                        echo  "</tr>";
+        if(mysqli_num_rows($show) > 0){
+            echo "<h3 class='text-center text-4xl font-bold text-black uppercase 
+                             bg-rose-500 w-2/3 mx-auto py-5 mt-10'>All Users Info!</h3>";
+            echo "<table class='mx-auto 
+                                p-5 mb-2xl mx-auto text-xl text-black
+                                px-3 py-2 mb-10
+                                bg-white border-0 w-2/3 text-center'>";
+            echo "<tr class= 'bg-rose-700 text-white'>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>UserName</th>
+                    <th>Action</th>
+                </tr>";
+            while ($row = mysqli_fetch_assoc($show)){
+                echo "<tr class='border-0 
+                                px-3 py-2 mb-2 
+                                hover:bg-rose-500 transistion duration-200'>";
+                    
+                    echo "<td>".htmlspecialchars($row['Name'])."</td>";
+                    echo "<td>".htmlspecialchars($row['Email'])."</td>";
+                    echo "<td>".htmlspecialchars($row['UserName'])."</td>";
+
+                    echo "<td class='bg-black text-white'>
+                        <a class='delete_btn  hover:text-rose-500' 
+                        href='?delete_id=".$row['id']."'
+                        onclick=\"return confirm('Are You Sure?');\">
+                            Delete
+                        </a>
+                        </td>";
+                    echo  "</tr>";
             }
             echo "</table>";
         }else {
-            echo "<p style='color:white;'>No User found yet.</p>";
+            echo "<h3 class='text-center text-4xl font-bold text-white uppercase rounded-xl
+                             bg-orange-600 w-2/3 mx-auto py-5 mt-10'>No User found yet!</h3>";
         }
-        
+    
         mysqli_close($con);
- ?>
+    
+    ?>
+
 </body>
 </html>
