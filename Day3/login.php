@@ -104,17 +104,19 @@ session_start(); //it starts a new session for a user, and remembers him, his da
 </head>
 <body class="bg-black">
     
-    <h2 class="">Login System</h2>
     <?php echo $login_message; ?>
-
     
     <?php if($logged_in): ?> <!-- if the user is logged in, run the code below -->
         <p class="p-3 bg-red-400 text-white">Welcome, <?php echo htmlspecialchars($_SESSION['user_name']);?>! <a href="?logout=1" class="bg-rose-500 px-3 py-2 rounded-lg">Logout</a> </p>
         <? else: ?>
-        <?php endif; ?>
-        <!-- login form -->
-        <!-- bg-sky-300 max-w-lg p-5 rounded-lg mx-auto text-2xl mt-10     -->
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST"
+            <?php endif; ?>
+            <h2 class="text-white p-3 mx-auto w-2/3 rounded-xl my-10 bg-red-600 uppercase text-2xl text-center font-bold">Login System</h2>
+            
+            <!-- login form -->
+            <!-- bg-sky-300 max-w-lg p-5 rounded-lg mx-auto text-2xl mt-10     -->
+
+            <h3 class="bg-white/10 text-white border border-white/20 mx-w-lg w-2/3 mx-auto py-3 my-2 text-center rounded-xl">Register New User</h3>
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST"
               class="max-w-lg mx-auto
                     bg-white/10 backdrop-blur-xl border border-white/25 rounded-2xl p-8
                     hover:border-white/40 transition">                
